@@ -107,7 +107,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""up"",
                     ""id"": ""33913871-f1b2-4460-99a6-3098b7fb239d"",
-                    ""path"": ""<TrackedDevice>/devicePosition/y"",
+                    ""path"": ""<TrackedDevice>/deviceRotation/x"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -118,7 +118,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""down"",
                     ""id"": ""c8dd480e-14bc-473a-87cd-b7dd295c2c6b"",
-                    ""path"": ""<TrackedDevice>/devicePosition/y"",
+                    ""path"": ""<TrackedDevice>/deviceRotation/x"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -129,7 +129,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""left"",
                     ""id"": ""8ae963c4-365a-4d29-ae75-371e86d1ac04"",
-                    ""path"": ""<TrackedDevice>/deviceRotation/x"",
+                    ""path"": ""<TrackedDevice>/deviceRotation/y"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -140,7 +140,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""right"",
                     ""id"": ""0bcd16b2-bfe5-420c-8a91-5e8925ef6f94"",
-                    ""path"": ""<TrackedDevice>/deviceRotation/x"",
+                    ""path"": ""<TrackedDevice>/deviceRotation/y"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

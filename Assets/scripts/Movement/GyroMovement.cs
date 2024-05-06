@@ -13,7 +13,9 @@ public class GyroMovement : MonoBehaviour
 
     float smooth = 5.0f;
     float tiltAngle = 60.0f;
-    // Start is called before the first frame update
+
+    //gyro rotation
+    private float _initialYAngle;
 
     void Awake()
     {
