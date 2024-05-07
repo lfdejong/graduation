@@ -51,8 +51,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnMove(InputValue inputValue)
     {
-        Vector2 inputVec = inputValue.Get<Vector2>();
 
+        Vector2 inputVec = inputValue.Get<Vector2>();
+        Debug.Log(inputValue.ToString());
         moveInput = new Vector3(inputVec.x, inputVec.y, 0);
     }
 }

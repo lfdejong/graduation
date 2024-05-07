@@ -31,7 +31,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": ""Move"",
                     ""type"": ""Value"",
                     ""id"": ""a0ed1290-2c55-44c1-928c-c528af8ca637"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -39,9 +39,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             ],
             ""bindings"": [
                 {
-                    ""name"": ""2D Vector"",
+                    ""name"": ""1D Axis"",
                     ""id"": ""8a5ca650-9e96-4ce8-abab-df06b9865feb"",
-                    ""path"": ""2DVector"",
+                    ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -50,30 +50,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""Up"",
+                    ""name"": ""Negative"",
                     ""id"": ""332b7e6c-8d82-41ae-8ff2-77f79e7c4b2e"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""Down"",
-                    ""id"": ""2763c05e-1b51-4073-b09b-2b05d71bd6bc"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""Left"",
-                    ""id"": ""e698a931-d36c-40b0-9049-b5daf039c76c"",
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -83,8 +61,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""Right"",
-                    ""id"": ""ebbd1bfe-f726-49ff-9e8c-a71c2e4c0dd8"",
+                    ""name"": ""Positive"",
+                    ""id"": ""2763c05e-1b51-4073-b09b-2b05d71bd6bc"",
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -94,9 +72,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""2D Vector"",
+                    ""name"": ""1D Axis"",
                     ""id"": ""673b32e6-415d-4dce-b411-ff83705510b9"",
-                    ""path"": ""2DVector"",
+                    ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -105,9 +83,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""up"",
+                    ""name"": ""Negative"",
                     ""id"": ""33913871-f1b2-4460-99a6-3098b7fb239d"",
-                    ""path"": ""<TrackedDevice>/deviceRotation/x"",
+                    ""path"": ""<TrackedDevice>/deviceRotation/z"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -116,31 +94,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""down"",
+                    ""name"": ""Positive"",
                     ""id"": ""c8dd480e-14bc-473a-87cd-b7dd295c2c6b"",
-                    ""path"": ""<TrackedDevice>/deviceRotation/x"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""8ae963c4-365a-4d29-ae75-371e86d1ac04"",
-                    ""path"": ""<TrackedDevice>/deviceRotation/y"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""0bcd16b2-bfe5-420c-8a91-5e8925ef6f94"",
-                    ""path"": ""<TrackedDevice>/deviceRotation/y"",
+                    ""path"": ""<TrackedDevice>/deviceRotation/z"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
