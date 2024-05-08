@@ -750,7 +750,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 265.13, y: 70.12, z: -10}
+  m_LocalPosition: {x: 265.13, y: 15.120003, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3117,7 +3117,7 @@ Transform:
   m_GameObject: {fileID: 1250187005}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 370, y: 90, z: 2051}
+  m_LocalPosition: {x: 370, y: 811, z: 2051}
   m_LocalScale: {x: 100, y: 1000, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3504,8 +3504,9 @@ GameObject:
   - component: {fileID: 1742937954}
   - component: {fileID: 1742937953}
   - component: {fileID: 1742937952}
-  - component: {fileID: 1742937956}
   - component: {fileID: 1742937957}
+  - component: {fileID: 1742937959}
+  - component: {fileID: 1742937958}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -3594,30 +3595,13 @@ Transform:
   m_GameObject: {fileID: 1742937949}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 265, y: 69, z: -0.04}
+  m_LocalPosition: {x: 265, y: 14, z: -0.04}
   m_LocalScale: {x: 0.46972457, y: 0.44128963, z: 0.12776184}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1020852292}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1742937956
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1742937949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e9c0bbb54db70b4fad2c412caf7d24e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementSpeed: 20
-  strafe: 0
-  hover: 1
-  strafeSpeed: 2
-  hoverSpeed: 0
 --- !u!54 &1742937957
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3645,6 +3629,38 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1742937958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742937949}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3a1aaa665079c44aa31cce58866b4e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  forwardSpeed: 25
+  strafeSpeed: 7.5
+  hoverSpeed: 5
+--- !u!114 &1742937959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742937949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e9c0bbb54db70b4fad2c412caf7d24e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 10
+  strafe: 5
+  hover: 5
+  strafeSpeed: 0
+  hoverSpeed: 0
 --- !u!1001 &7837029219980298220
 PrefabInstance:
   m_ObjectHideFlags: 0
