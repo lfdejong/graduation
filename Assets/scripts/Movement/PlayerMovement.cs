@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
     {
         activeStrafe = Mathf.Lerp(activeStrafe, UnityEngine.Input.gyro.rotationRateUnbiased.z * strafeSpeed, accStrafe * Time.deltaTime);
         activeHover = Mathf.Lerp(activeHover, UnityEngine.Input.gyro.rotationRateUnbiased.x * hoverSpeed, accHover * Time.deltaTime);
-
+        
         transform.position += transform.forward * forwardSpeed * Time.deltaTime;
         transform.position += (transform.right * activeStrafe * Time.deltaTime) + (transform.up * activeHover * Time.deltaTime);
 
