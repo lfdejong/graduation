@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class AccelerationManager : MonoBehaviour
 {
-    [SerializeField] private float speed = 10f;
+    [SerializeField] private float speed = 30f;
     private Vector3 moveDirection = Vector3.zero;
     [SerializeField] private CharacterController controller;
 
@@ -36,6 +36,7 @@ public class AccelerationManager : MonoBehaviour
 
     }
 
+    //functions for calibrating and enabling the gyroscope
     private IEnumerator Start()
     {
         Input.gyro.enabled = true;
@@ -78,4 +79,8 @@ public class AccelerationManager : MonoBehaviour
         enabled = true;
         StartCoroutine(CalibrateYAngle());
     }
+
+    //On Collider hits
+
+
 }
