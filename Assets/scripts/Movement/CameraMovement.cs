@@ -4,23 +4,43 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    private Vector3 _offset;
-    [SerializeField] private Transform player;
-    [SerializeField] private float smoothTime;
-    [SerializeField]  private Vector3 offset;
-    [SerializeField] private float speed;
-    private Vector3 currentVelocity = Vector3.zero;
+    public Transform player; // The player's transform
+    public Transform cameraTarget; // The camera's target (usually an empty GameObject)
+    public float distance; // Distance from the player
+    public float height; // Height above the player
+    public float heightDamping = 2.0f; // Damping for height adjustment
+    public float rotationDamping = 3.0f; // Damping for rotation
 
-
-    private void Awake()
+    void FixedUpdate()
     {
-        offset = transform.position - player.position;
-        transform.position = player.position + offset;
-    }
+        // Check if player and cameraTarget are assigned
+        if (!player || !cameraTarget)
+            return;
 
-    private void Update()
-    {
-        Vector3 targetPosition = player.position + offset;
-        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref currentVelocity, smoothTime, speed);
+        // Get the current position and rotation of the player
+        float wantedRotationAngle = player.eulerAngles.y;
+        float wantedHeight = player.position.y + height;
+
+        float currentRotationAngle = transform.eulerAngles.y;
+        float currentHeight = transform.position.y;
+
+        // Smoothly damp the rotation angle
+        currentRotationAngle = Mathf.LerpAngle(currentRotationAngle, wantedRotationAngle, rotationDamping * Time.deltaTime);
+
+        // Smoothly damp the height
+        currentHeight = Mathf.Lerp(currentHeight, wantedHeight, heightDamping * Time.deltaTime);
+
+        // Convert the angle into a rotation
+        Quaternion currentRotation = Quaternion.Euler(0, currentRotationAngle, 0);
+
+        // Set the position of the camera on the x-z plane to distance meters behind the player
+        transform.position = player.position;
+        transform.position -= currentRotation * Vector3.forward * distance;
+
+        // Set the height of the camera
+        transform.position = new Vector3(transform.position.x, currentHeight, transform.position.z);
+
+        // Always look at the camera target
+        transform.LookAt(cameraTarget);
     }
 }
