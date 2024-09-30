@@ -1,51 +1,108 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class MovementController : MonoBehaviour
 {
-    [SerializeField] private float forwardSpeed = 5.0f;     // Speed at which the character moves forward
-    [SerializeField] private float rotationSpeed = 2.0f;    // Speed at which the character rotates
-    [SerializeField] private float movementSpeed = 5.0f;    // Speed at which the character moves left/right/up/down
-    [SerializeField] private float smoothingFactor = 0.1f;  // Smoothing factor for directional changes
+    public float movementForce = 50.0f;        // Force applied to the player for sensor-based movement
+    public float forwardForce = 10.0f;         // Constant forward force applied to the player
+    public float drag = 0.5f;                  // Drag applied to the rigidbody to smooth movement
+    public int forceDifferenceThreshold = 100; // Threshold for directional movement
+    public Camera mainCamera;                  // Reference to the main camera for boundary check
 
-    private Vector2 moveInput;            // Input from the New Input System for left/right and up/down movement
-    private Vector3 targetDirection;      // The calculated direction based on input
-    private Vector3 smoothedDirection;    // The direction that is smoothed over time
+    private Rigidbody rb;                      // Rigidbody component
+    private ArduinoInput sensorInput;      // Reference to the ForceSensorInput script
 
-    public InputActionReference move;
-
-    private void Start()
+    void Start()
     {
-        // Initialize the direction variables
-        targetDirection = transform.forward;
-        smoothedDirection = transform.forward;
+        // Get the Rigidbody component
+        rb = GetComponent<Rigidbody>();
+
+        // Set Rigidbody's interpolation mode to smooth movement between frames
+        rb.interpolation = RigidbodyInterpolation.Interpolate;
+        rb.drag = drag;  // Set drag to smooth out movement
+
+        // Get the ForceSensorInput component from the same GameObject
+        sensorInput = GetComponent<ArduinoInput>();
     }
 
     void FixedUpdate()
     {
-        // Calculate the target direction based on player input
-        targetDirection = new Vector3(moveInput.x, moveInput.y, 1.0f);
-        targetDirection = targetDirection.normalized;
+        // Ensure the force sensor input is available before moving
+        if (sensorInput != null)
+        {
+            // Get the forces from each sensor
+            int forceUp = sensorInput.GetForceUp();
+            int forceDown = sensorInput.GetForceDown();
+            int forceLeft = sensorInput.GetForceLeft();
+            int forceRight = sensorInput.GetForceRight();
 
-        // Smooth the transition to the target direction using Slerp
-        smoothedDirection = Vector3.Slerp(smoothedDirection, targetDirection, smoothingFactor);
+            // Calculate the differences between opposite sensors
+            int verticalDifference = Mathf.Abs(forceUp - forceDown);
+            int horizontalDifference = Mathf.Abs(forceLeft - forceRight);
 
-        // Rotate towards the smoothed direction
-        Quaternion targetRotation = Quaternion.LookRotation(smoothedDirection);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            // Determine movement based on the force differences
+            if (verticalDifference < forceDifferenceThreshold && horizontalDifference < forceDifferenceThreshold)
+            {
+                // Case 1: Differences are small, move forward
+                MoveForward();
+            }
+            else
+            {
+                // Case 2: Differences are large, move based on sensor forces
+                MoveBasedOnForces(forceUp, forceDown, forceLeft, forceRight);
+            }
+        }
 
-        // Move the character forward constantly
-        transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
-
-        // Apply additional movement for left/right and up/down directions
-        transform.Translate(new Vector3(moveInput.x, moveInput.y, 0) * movementSpeed * Time.deltaTime, Space.Self);
+        // Constrain the player's movement within the camera view
+        ConstrainMovementWithinCamera();
     }
 
-    // Input System Callback for receiving Move input
-    public void OnMove(InputAction.CallbackContext context)
+    // Method to apply constant forward movement
+    void MoveForward()
     {
-        moveInput = context.ReadValue<Vector2>();
+        Vector3 forwardForceVector = Vector3.forward * forwardForce;
+        rb.AddForce(forwardForceVector, ForceMode.Acceleration);
+    }
+
+    // Method to apply movement based on the sensor forces
+    void MoveBasedOnForces(int forceUp, int forceDown, int forceLeft, int forceRight)
+    {
+        Vector3 targetForce = Vector3.zero;
+
+        // Apply vertical forces
+        if (forceUp > forceDown)
+        {
+            targetForce.y = (forceUp - forceDown) / 2046.0f;
+        }
+        else if (forceDown > forceUp)
+        {
+            targetForce.y = -(forceDown - forceUp) / 2046.0f;
+        }
+
+        // Apply horizontal forces
+        if (forceRight > forceLeft)
+        {
+            targetForce.x = (forceRight - forceLeft) / 2046.0f;
+        }
+        else if (forceLeft > forceRight)
+        {
+            targetForce.x = -(forceLeft - forceRight) / 2046.0f;
+        }
+
+        // Normalize the direction and apply the movement force
+        rb.AddForce(targetForce.normalized * movementForce, ForceMode.Acceleration);
+    }
+
+    // Ensure the player's movement stays within the camera bounds
+    void ConstrainMovementWithinCamera()
+    {
+        // Get the player's position in screen space
+        Vector3 screenPosition = mainCamera.WorldToViewportPoint(transform.position);
+
+        // Check if the player is outside the screen bounds and clamp the position
+        screenPosition.x = Mathf.Clamp01(screenPosition.x);
+        screenPosition.y = Mathf.Clamp01(screenPosition.y);
+
+        // Convert the clamped screen position back to world space and set the player's position
+        transform.position = mainCamera.ViewportToWorldPoint(screenPosition);
     }
 }

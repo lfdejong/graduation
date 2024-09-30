@@ -1,82 +1,144 @@
-using System.IO.Ports;
 using UnityEngine;
-
 
 public class ArduinoController : MonoBehaviour
 {
-    SerialPort serialPort = new SerialPort("COM3", 9600); // Set the correct COM port
-    [SerializeField] private float movementSpeed = 5.0f; // Speed at which the object moves
-    [SerializeField] private float rotationSpeed = 2.0f; // Speed at which the object rotates
-    [SerializeField] private float maxHorizontalRange = 2000f;// Maximum movement range on the X-axis
-    [SerializeField] private float maxVerticalRange = 500.0f;//max movemeent range on the Y-axis
-    [SerializeField] private float smoothingFactor = 0.1f; // Smoothing factor for input values
+    public float movementSpeed = 5.0f;      // Movement speed
+    public float rotationSpeed = 2.0f;      // Speed at which the character rotates
+    public float maxHorizontalRange = 1.0f; // Max horizontal movement range (-1 to 1)
+    public float maxVerticalRange = 1.0f;   // Max vertical movement range (-1 to 1)
+    public float pressureThresholdLow = 100.0f;  // Low pressure threshold for light movement
+    public float pressureThresholdHigh = 2000.0f; // High pressure threshold for stronger movement
+    public float smoothingFactor = 0.1f;    // How smooth the transition between directions is
+    public Camera mainCamera;                // Reference to the main camera for boundary check
+    public ArduinoInput arduinoInput;
 
-    //forward speed 
-
-    public float forwardSpeed = 10.0f; 
-    public float turnSpeed = 2.0f;      // Speed at which the object turns towards the target direction
-
-    private Vector3 targetDirection;    // The direction the object should move towards
+    private Vector3 targetDirection = Vector3.zero;  // Target movement direction
     private Vector3 smoothedDirection = Vector3.zero; // Smoothed direction for movement
+
+    //arduino input
+    private float force1;
+    private float force2;
+    private float force3;
+    private float force4;
+
+    private enum MovementState
+    {
+        NoMovement,
+        LightMovement,
+        StrongMovement
+    }
 
     void Start()
     {
-        // Initialize the serial port
-        serialPort.Open();
-        serialPort.ReadTimeout = 50;
-
+        // Initialize movement directions
         targetDirection = transform.forward;
+        smoothedDirection = transform.forward;
+
+
     }
 
     void Update()
     {
-        // Read force sensor values from Arduino
-        if (serialPort.IsOpen)
-        {
-            try
-            {
-                string data = serialPort.ReadLine();
-                string[] sensorValues = data.Split(',');
 
-                if (sensorValues.Length == 4)
-                {
-                    int force1 = int.Parse(sensorValues[0]);
-                    int force2 = int.Parse(sensorValues[1]);
-                    int force3 = int.Parse(sensorValues[2]);
-                    int force4 = int.Parse(sensorValues[3]);
+                    // Calculate the total pressure from all sensors
+                    float totalPressure = force1 + force2 + force3 + force4;
 
-                    // Calculate the control inputs with smoothing
-                    float horizontalInput = (force1 - force2 ) / 2046.0f; // Normalized to range -1 to 1
-                    float verticalInput = (force4 - force3) / 2046.0f; // Normalized to range -1 to 1
+                    UnityEngine.Debug.Log(totalPressure);
+                    UnityEngine.Debug.Log("force 1: " + force1);
+                    UnityEngine.Debug.Log("force 2: " + force2);
+                    UnityEngine.Debug.Log("force 3: " + force3);
+                    UnityEngine.Debug.Log("force 4: " + force4);
 
-                    // Apply smoothing to inputs
-                    targetDirection = new Vector3(horizontalInput * maxHorizontalRange, verticalInput * maxVerticalRange, 1.0f);
-                    targetDirection = targetDirection.normalized;
 
-                    // Smooth the transition of target direction
-                    smoothedDirection = Vector3.Lerp(smoothedDirection, targetDirection, smoothingFactor);
-                }
-            }
-            catch (System.Exception)
-            {
-                // Handle exceptions (e.g., timeout or parsing errors)
-            }
-        }
+                    // Determine movement state based on total pressure using a switch case
+                    MovementState movementState = DetermineMovementState(totalPressure);
 
-        // Slerp towards the smoothed direction for smooth rotation
-        Quaternion targetRotation = Quaternion.LookRotation(smoothedDirection);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+                    switch (movementState)
+                    {
+                        case MovementState.NoMovement:
+                            //constant movement
+                            UnityEngine.Debug.Log("No movement");
+                            transform.position += transform.forward * (movementSpeed * Time.smoothDeltaTime);
+                            return;
+                        case MovementState.LightMovement:
+                            //constant movement
+                            UnityEngine.Debug.Log("Light movement");
+                            float horizontalInput = (force4 - force3) / 1; // Normalized to range -1 to 1
+                            float verticalInput = (force2 - force1) / 1;   // Normalized to range -1 to 1
 
-        // Move the object forward in the direction it is currently facing
-        transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
+                            horizontalInput = Mathf.Clamp(horizontalInput, -1, 1);
+                            verticalInput = Mathf.Clamp(verticalInput, -1, 1);
+
+                            UnityEngine.Debug.Log(horizontalInput + ", " + verticalInput);
+
+                            targetDirection = new Vector3(horizontalInput * maxHorizontalRange, verticalInput * maxVerticalRange, 1.0f).normalized;
+
+                            // Smooth the transition to the target direction using Slerp
+                            smoothedDirection = Vector3.Slerp(smoothedDirection, targetDirection, smoothingFactor);
+
+
+                            // Move the player in the direction it is facing (forward) and apply additional movement based on input
+                            transform.Translate(smoothedDirection * movementSpeed * Time.smoothDeltaTime, Space.World);
+                            transform.position += transform.forward * (movementSpeed * Time.smoothDeltaTime);
+                            break;
+                        case MovementState.StrongMovement:
+                            UnityEngine.Debug.Log("Strong movement");
+                            // Normalize input to calculate horizontal and vertical directions
+                            horizontalInput = (force4 - force3) / 2; // Normalized to range -1 to 1
+                            verticalInput = (force2 - force1) / 2;   // Normalized to range -1 to 1
+
+                            horizontalInput = Mathf.Clamp(horizontalInput, -1, 1);
+                            verticalInput = Mathf.Clamp(verticalInput, -1, 1);
+
+                            UnityEngine.Debug.Log(horizontalInput + ", " + verticalInput);
+
+                            targetDirection = new Vector3(horizontalInput * maxHorizontalRange, verticalInput * maxVerticalRange, 1.0f).normalized;
+
+                            // Smooth the transition to the target direction using Slerp
+                            smoothedDirection = Vector3.Slerp(smoothedDirection, targetDirection, smoothingFactor);
+
+
+                            // Move the player in the direction it is facing (forward) and apply additional movement based on input
+                            transform.Translate(smoothedDirection * movementSpeed * Time.smoothDeltaTime, Space.World);
+                            transform.position += transform.forward * (movementSpeed * Time.smoothDeltaTime);
+                            break;
+                    }
+                
+            
+        // Constrain the player's movement within the camera view
+       ConstrainMovementWithinCamera();
     }
 
-    void OnApplicationQuit()
+    private MovementState DetermineMovementState(float totalPressure)
     {
-        // Close the serial port when the application quits
-        if (serialPort != null && serialPort.IsOpen)
+        // Use a switch statement to determine the movement state based on pressure
+        switch (totalPressure)
         {
-            serialPort.Close();
+            case float p when p < pressureThresholdLow:
+                return MovementState.NoMovement;
+
+            case float p when p >= pressureThresholdLow && p < pressureThresholdHigh:
+                return MovementState.LightMovement;
+
+            case float p when p >= pressureThresholdHigh:
+                return MovementState.StrongMovement;
+
+            default:
+                return MovementState.NoMovement;
         }
+    }
+
+    // Ensure the player's movement stays within the camera bounds
+    void ConstrainMovementWithinCamera()
+    {
+        // Get the player's position in screen space
+        Vector3 screenPosition = mainCamera.WorldToViewportPoint(transform.position);
+
+        // Check if the player is outside the screen bounds and clamp the position
+        screenPosition.x = Mathf.Clamp01(screenPosition.x);
+        screenPosition.y = Mathf.Clamp01(screenPosition.y);
+
+        // Convert the clamped screen position back to world space and set the player's position
+        transform.position = mainCamera.ViewportToWorldPoint(screenPosition);
     }
 }
