@@ -8,11 +8,23 @@ public class PauseMenu : MonoBehaviour
     public static bool gameIsPaused = false;
 
     public GameObject PauseMenuUi;
-
+    private void Update()
+    {
+        if(Input.GetKeyUp(KeyCode.Escape))
+        {
+            if (gameIsPaused )
+            {
+                Resume();
+            } else
+            {
+                Pause();
+            }
+        }
+    }
     public void QuitGame()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("StartMenu");
+        Application.Quit();
     }
 
     public void Pause()

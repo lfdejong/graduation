@@ -71,6 +71,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 06e90bb95849b1a409e332347f130d69, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2818356943333795079}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 06e90bb95849b1a409e332347f130d69, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3326335617991920333}
   m_SourcePrefab: {fileID: 100100000, guid: 06e90bb95849b1a409e332347f130d69, type: 3}
 --- !u!1 &2242577906682841453 stripped
 GameObject:
@@ -99,3 +102,27 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 948272068957090093, guid: 06e90bb95849b1a409e332347f130d69, type: 3}
+--- !u!114 &3326335617991920333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2242577906682841453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5381a3ffb656af42830b52e8dc1b484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settings:
+    meshColliderHandling: 2
+    boundsInclusion: 1
+    indexing: 0
+    applyRotation: 1
+    keepUpright: 0
+    upVector: {x: 0, y: 1, z: 0}
+    applyScale: 0
+    bendMesh: 0
+    bendSprite: 0
+    bendPolygonCollider: 0
+    applyMeshColors: 0
