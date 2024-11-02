@@ -1,11 +1,12 @@
+using System.Drawing;
 using UnityEngine;
 
 public class MovementController : MonoBehaviour
 {
-    public float movementForce = 50.0f;        // Force applied to the player for sensor-based movement
-    public float forwardForce = 10.0f;         // Constant forward force applied to the player
-    public float drag = 0.5f;                  // Drag applied to the rigidbody to smooth movement
-    public int forceDifferenceThreshold = 100; // Threshold for directional movement
+    [SerializeField] private float movementForce;        // Force applied to the player for sensor-based movement
+    [SerializeField] public float forwardForce;         // Constant forward force applied to the player
+    [SerializeField] private float drag = 0.5f;                  // Drag applied to the rigidbody to smooth movement
+    [SerializeField] private int forceDifferenceThreshold = 100; // Threshold for directional movement
     public Camera mainCamera;                  // Reference to the main camera for boundary check
 
     private Rigidbody rb;                      // Rigidbody component
@@ -90,6 +91,8 @@ public class MovementController : MonoBehaviour
 
         // Normalize the direction and apply the movement force
         rb.AddForce(targetForce.normalized * movementForce, ForceMode.Acceleration);
+
+ 
     }
 
     // Ensure the player's movement stays within the camera bounds
