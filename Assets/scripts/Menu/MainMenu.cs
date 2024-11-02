@@ -6,11 +6,14 @@ using UnityEngine.UI;
 
 public class NewBehaviourScript : MonoBehaviour
 {
-    public Button[] buttons;
  
-    public void PlayGame(int testId)
+    public void PlayGame()
     {
-        string test = "Test " + testId;
-        SceneManager.LoadScene(test);
+        SceneManager.LoadScene("toolkit");
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 }

@@ -4,19 +4,12 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    private Vector3 _offset;
-    [SerializeField] private Transform target;
-    [SerializeField] private float smoothTime;
-    private Vector3 currentVelocity = Vector3.zero;
+    public GameObject player;
+    [SerializeField]
+    private float xAxis, yAxis, zAxis;
 
-    private void Awake()
+    private void Update()
     {
-        _offset = transform.position - target.position;
-    }
-
-    private void LateUpdate()
-    {
-        Vector3 targetPosition = target.position + _offset;
-        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref currentVelocity, smoothTime);
+        transform.position = new Vector3(player.transform.position.x + xAxis, player.transform.position.y + yAxis, player.transform.position.z + zAxis);
     }
 }

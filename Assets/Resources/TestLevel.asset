@@ -13,11 +13,95 @@ MonoBehaviour:
   m_Name: TestLevel
   m_EditorClassIdentifier: 
   _enabled: 1
-  _pathGenerator: {fileID: 0}
+  _pathGenerator: {fileID: 11400000, guid: 6400606a4d795684196b4a2dbc7361c6, type: 2}
   _sequenceCollection:
-    sequences: []
-    sequencePositions: []
-    allSequences: []
+    sequences:
+    - enabled: 1
+      name: Sequence
+      isCustom: 0
+      customSequence: {fileID: 0}
+      segments:
+      - nested: 0
+        randomPickChance: 1
+        _prefab: {fileID: 7821636544824884236, guid: f763248b1ace3934ea2cb24dd181f99c, type: 3}
+        _segmentPool: []
+        _pool: 0
+        _poolParent: {fileID: 0}
+      - nested: 0
+        randomPickChance: 1
+        _prefab: {fileID: 7821636544824884236, guid: f763248b1ace3934ea2cb24dd181f99c, type: 3}
+        _segmentPool: []
+        _pool: 0
+        _poolParent: {fileID: 0}
+      - nested: 0
+        randomPickChance: 1
+        _prefab: {fileID: 7821636544824884236, guid: f763248b1ace3934ea2cb24dd181f99c, type: 3}
+        _segmentPool: []
+        _pool: 0
+        _poolParent: {fileID: 0}
+      - nested: 0
+        randomPickChance: 1
+        _prefab: {fileID: 7821636544824884236, guid: f763248b1ace3934ea2cb24dd181f99c, type: 3}
+        _segmentPool: []
+        _pool: 0
+        _poolParent: {fileID: 0}
+      - nested: 0
+        randomPickChance: 1
+        _prefab: {fileID: 7821636544824884236, guid: f763248b1ace3934ea2cb24dd181f99c, type: 3}
+        _segmentPool: []
+        _pool: 0
+        _poolParent: {fileID: 0}
+      customPathGenerator: {fileID: 11400000, guid: 470acec9c910daf469aaea66e53897ac, type: 2}
+      spawnCount: 1
+      type: 0
+      randomizer: {fileID: 0}
+      customShuffle: {fileID: 0}
+      preventRepeat: 0
+    sequencePositions:
+    - parent: -1
+      segmentIndex: -1
+    allSequences:
+    - enabled: 1
+      name: Sequence
+      isCustom: 0
+      customSequence: {fileID: 0}
+      segments:
+      - nested: 0
+        randomPickChance: 1
+        _prefab: {fileID: 7821636544824884236, guid: f763248b1ace3934ea2cb24dd181f99c, type: 3}
+        _segmentPool: []
+        _pool: 0
+        _poolParent: {fileID: 0}
+      - nested: 0
+        randomPickChance: 1
+        _prefab: {fileID: 7821636544824884236, guid: f763248b1ace3934ea2cb24dd181f99c, type: 3}
+        _segmentPool: []
+        _pool: 0
+        _poolParent: {fileID: 0}
+      - nested: 0
+        randomPickChance: 1
+        _prefab: {fileID: 7821636544824884236, guid: f763248b1ace3934ea2cb24dd181f99c, type: 3}
+        _segmentPool: []
+        _pool: 0
+        _poolParent: {fileID: 0}
+      - nested: 0
+        randomPickChance: 1
+        _prefab: {fileID: 7821636544824884236, guid: f763248b1ace3934ea2cb24dd181f99c, type: 3}
+        _segmentPool: []
+        _pool: 0
+        _poolParent: {fileID: 0}
+      - nested: 0
+        randomPickChance: 1
+        _prefab: {fileID: 7821636544824884236, guid: f763248b1ace3934ea2cb24dd181f99c, type: 3}
+        _segmentPool: []
+        _pool: 0
+        _poolParent: {fileID: 0}
+      customPathGenerator: {fileID: 11400000, guid: 470acec9c910daf469aaea66e53897ac, type: 2}
+      spawnCount: 1
+      type: 0
+      randomizer: {fileID: 0}
+      customShuffle: {fileID: 0}
+      preventRepeat: 0
   _remoteSequence: 0
   _remoteSceneName: 
   _loadingPriority: 1
