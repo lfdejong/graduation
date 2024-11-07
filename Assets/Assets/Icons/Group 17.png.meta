@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b934c881b7940a44e93a8041de0d213d
+guid: 6790d1ca00eec6e45baae7c9e2d1f7f6
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -147,18 +147,92 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Group 17_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 118
+        height: 298
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b855e63a25be684ebcd6a14563b33d9
+      internalID: -1061900846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Group 17_9
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 0
+        width: 128
+        height: 298
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dee9cacac7371c5418f8b315193e713e
+      internalID: 1743312929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Group 17_10
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 0
+        width: 132
+        height: 340
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7684764d14121a24d80a49b143d6d911
+      internalID: 886494087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 60caeeff76fa32c488212725d6421600
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Group 17_0: 2052164402
+      Group 17_1: -165236377
+      Group 17_10: 886494087
+      Group 17_2: 850487161
+      Group 17_3: 1808728116
+      Group 17_4: -1872704389
+      Group 17_5: 7311230
+      Group 17_6: 544212539
+      Group 17_7: -1061900846
+      Group 17_8: 2096615539
+      Group 17_9: 1743312929
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

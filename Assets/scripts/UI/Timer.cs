@@ -26,6 +26,7 @@ public class Timer : MonoBehaviour
     {
         //Plane's forwardForce is set to Zero.
         movementController.forwardForce = 0f;
+        movementController.movementForce = 0f;
     }
 
     void Update()
@@ -43,6 +44,7 @@ public class Timer : MonoBehaviour
                 timeRemaining = 0;
                 timerIsRunning = false;
                 movementController.forwardForce = 50f;
+                movementController.movementForce = 45f;
                 textMeshPro.enabled = false;
             }
             }

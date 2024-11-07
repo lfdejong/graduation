@@ -4,12 +4,26 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class NewBehaviourScript : MonoBehaviour
+public class MenuManager : MonoBehaviour
 {
- 
+    [SerializeField] GameObject tutorial;
+    [SerializeField] GameObject menu;
+
+    private void Start()
+    {
+        menu.SetActive(true);
+        tutorial.SetActive(false);
+    }
+
     public void PlayGame()
     {
-        SceneManager.LoadScene("toolkit");
+        SceneManager.LoadScene("demo");
+    }
+
+    public void Tutorial()
+    {
+        menu.SetActive(false);
+        tutorial.SetActive(true);
     }
 
     public void Quit()

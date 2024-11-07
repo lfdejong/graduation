@@ -2,21 +2,25 @@ using System;
 using System.IO.Ports;
 using System.Linq;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
+using UnityEngine.InputSystem;
 
 public class ArduinoInput : MonoBehaviour
 {
     public string portName = "COM3";             // Serial port for reading the sensor values
     public int[] sensorValues = new int[4];      // Array to store values from 4 force sensors
     public int baudRate = 9600;                  // Standard Baudrate
-
+   
     private SerialPort serialPort;
-  
-    
+
+
     void Start()
     {
         // Initialize serial port communication
         serialPort = new SerialPort(portName, 9600);
         serialPort.Open();
+
+  
     }
 
     void Update()
@@ -45,7 +49,9 @@ public class ArduinoInput : MonoBehaviour
         else
         {
             // Try to reconnect when the port is not open
-            //TryReconnect();
+            serialPort.Close();
+            
+          //  TryReconnect();
             return;
         }
     }
@@ -61,7 +67,12 @@ public class ArduinoInput : MonoBehaviour
         catch (System.Exception ex)
         {
             Debug.LogError("Serial port cannot be opened: " + ex.Message);
-            TryReconnect();
+            if (serialPort != null && serialPort.IsOpen)
+            {
+                serialPort.Close();  
+                TryReconnect();
+            }
+          
 
         }
     }
@@ -98,4 +109,5 @@ public class ArduinoInput : MonoBehaviour
     public int GetForceDown() { return sensorValues[1]; } // Sensor 2 (Down)
     public int GetForceLeft() { return sensorValues[2]; } // Sensor 3 (Left)
     public int GetForceRight() { return sensorValues[3]; }// Sensor 4 (Right)
+
 }
